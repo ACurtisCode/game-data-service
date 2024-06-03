@@ -6,10 +6,7 @@ import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
@@ -28,6 +25,17 @@ public class GameResource {
             return returnedGame;
         }
         return new ResponseEntity(HttpStatus.NOT_FOUND);
+    }
+    @GetMapping("/rawg/{id}")
+    public ResponseEntity<Game> getRawgGame(@PathVariable("id") Long id) {
+        ResponseEntity<Game> returnedGame = restTemplate.getForEntity("http://localhost:8081/games" + id, Game.class);
+        return returnedGame;
+    }
+
+    @PostMapping("/{id}")
+    @ResponseBody
+    public postGameToDb(Game game) {
+        restTemplate.postForObject("http://localhost:8082/games" + )
     }
 
 
